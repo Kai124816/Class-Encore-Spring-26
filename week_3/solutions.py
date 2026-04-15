@@ -97,12 +97,10 @@ class Dog(Animal):
     'Animal(Rex)'
     """
     def speak(self) -> str:
-        # YOUR CODE HERE
-        pass
+        return f"{self.name} says: Woof!"
 
     def fetch(self, item: str) -> str:
-        # YOUR CODE HERE
-        pass
+        return f"{self.name} fetches the {item}!"
 
 
 # Problem 2
@@ -129,20 +127,17 @@ class Cat(Animal):
     'I am Whiskers.'
     """
     def __init__(self, name: str, indoor: bool = True):
-        # YOUR CODE HERE
-        pass
+        super().__init__(name)
+        self.indoor = indoor
 
     def speak(self) -> str:
-        # YOUR CODE HERE
-        pass
+        return f"{self.name} says: Meow!"
 
     def __str__(self) -> str:
-        # YOUR CODE HERE
-        pass
+        return f"Cat({self.name})"
 
     def is_indoor(self) -> bool:
-        # YOUR CODE HERE
-        pass
+        return self.indoor
 
 
 # Problem 3
@@ -170,20 +165,20 @@ class ElectricCar(Vehicle):
     'Tesla (120 mph)'
     """
     def __init__(self, make: str, speed: int, battery_level: int):
-        # YOUR CODE HERE
-        pass
+       super().__init__(make, speed)
+       self.battery_level = battery_level
 
     def fuel_type(self) -> str:
-        # YOUR CODE HERE
-        pass
+        return 'electric'
 
     def move(self) -> str:
-        # YOUR CODE HERE
-        pass
+       return f"{self.make} glides silently at {self.speed} mph."
 
     def charge(self, amount: int) -> None:
-        # YOUR CODE HERE
-        pass
+        if self.battery_level + amount >= 100:
+            self.battery_level = 100
+        else:
+            self.battery_level += amount
 
 
 # Problem 4
@@ -210,20 +205,20 @@ class SavingsAccount(BankAccount):
     'Alice [Savings]: $0.01'
     """
     def __init__(self, owner: str, balance: float, interest_rate: float):
-        # YOUR CODE HERE
-        pass
+        super().__init__(owner, balance)
+        self.interest_rate = interest_rate
 
     def apply_interest(self) -> None:
-        # YOUR CODE HERE
-        pass
+        self.balance += self.balance * self.interest_rate
 
     def withdraw(self, amount: float) -> bool:
-        # YOUR CODE HERE
-        pass
+        if self.balance - amount < 0.01:
+            return False
+        self.balance -= amount
+        return True
 
     def __str__(self) -> str:
-        # YOUR CODE HERE
-        pass
+        return f"{self.owner} [Savings]: ${round(self.balance, 2)}"
 
 
 # ============================================================
@@ -253,20 +248,16 @@ class Circle(Shape):
     PI = 3.14159
 
     def __init__(self, radius: float):
-        # YOUR CODE HERE
-        pass
+        self.radius = radius
 
     def area(self) -> float:
-        # YOUR CODE HERE
-        pass
+        return self.PI * (self.radius**2)
 
     def perimeter(self) -> float:
-        # YOUR CODE HERE
-        pass
+        return 2 * self.PI * self.radius
 
     def __str__(self) -> str:
-        # YOUR CODE HERE
-        pass
+        return f"Circle(r={self.radius})"
 
 
 # Problem 6
@@ -289,20 +280,17 @@ class Rectangle(Shape):
     'I am a Rectangle with area 24.00'
     """
     def __init__(self, width: float, height: float):
-        # YOUR CODE HERE
-        pass
+        self.width = width
+        self.height = height
 
     def area(self) -> float:
-        # YOUR CODE HERE
-        pass
+        return self.width * self.height
 
     def perimeter(self) -> float:
-        # YOUR CODE HERE
-        pass
+       return 2 * (self.width + self.height)
 
     def __str__(self) -> str:
-        # YOUR CODE HERE
-        pass
+        return f"Rectangle(w={self.width}, h={self.height})"
 
 
 # Problem 7
@@ -320,8 +308,10 @@ def total_area(shapes: list) -> float:
     >>> round(total_area(shapes), 2)
     9.14
     """
-    # YOUR CODE HERE
-    pass
+    area = 0.0
+    for shape in shapes:
+        area += shape.area()
+    return area
 
 
 # ============================================================
@@ -354,16 +344,16 @@ class FixedList(list):
     1
     """
     def __init__(self, max_size: int):
-        # YOUR CODE HERE
-        pass
+        super().__init__()
+        self.max_size = max_size
 
     def append(self, item) -> None:
-        # YOUR CODE HERE
-        pass
+        if self.is_full():
+            raise ValueError("List is full")
+        super().append(item)
 
     def is_full(self) -> bool:
-        # YOUR CODE HERE
-        pass
+        return len(self) == self.max_size     
 
 
 # Problem 9
@@ -390,16 +380,16 @@ class DefaultDict(dict):
     99
     """
     def __init__(self, default):
-        # YOUR CODE HERE
-        pass
+        super().__init__()
+        self.default = default
 
     def __getitem__(self, key):
-        # YOUR CODE HERE
-        pass
+        return super().get(key, self.default)
+        
 
     def set_default(self, new_default) -> None:
-        # YOUR CODE HERE
-        pass
+        self.default = new_default
+
 
 # Problem 10
 class ShapeCollection(list):
@@ -429,17 +419,26 @@ class ShapeCollection(list):
     2
     """
     def append(self, item) -> None:
-        # YOUR CODE HERE
-        pass
+        if isinstance(item, Shape):
+            super().append(item)
+        else:
+            raise TypeError("Only Shape objects allowed")
  
     def largest(self) -> Shape:
-        # YOUR CODE HERE
-        pass
- 
+        largest_area = 0.0
+        largest_shape = None
+        for shape in self:
+            curr_area = shape.area()
+            if curr_area > largest_area:
+                largest_area = curr_area
+                largest_shape = shape
+        return largest_shape
+
     def total_perimeter(self) -> float:
-        # YOUR CODE HERE
-        pass
- 
+        total_perimeter = 0.0
+        for shape in self:
+            total_perimeter += shape.perimeter()
+        return total_perimeter
 
 
 # ============================================================
@@ -449,13 +448,13 @@ class ShapeCollection(list):
 # ============================================================
 if __name__ == "__main__":
     import doctest
-    # doctest.run_docstring_examples(Dog,           globals(), name="Dog") #Problem 1
-    # doctest.run_docstring_examples(Cat,           globals(), name="Cat") #Problem 2
-    # doctest.run_docstring_examples(ElectricCar,   globals(), name="ElectricCar") #Problem 3
-    # doctest.run_docstring_examples(SavingsAccount,globals(), name="SavingsAccount") #Problem 4
-    # doctest.run_docstring_examples(Circle,        globals(), name="Circle") #Problem 5
-    # doctest.run_docstring_examples(Rectangle,     globals(), name="Rectangle") #Problem 6
-    # doctest.run_docstring_examples(total_area,    globals(), name="total_area") #Problem 7
-    # doctest.run_docstring_examples(FixedList,     globals(), name="FixedList") #Problem 8
-    # doctest.run_docstring_examples(DefaultDict,   globals(), name="DefaultDict") #Problem 9
-    # doctest.run_docstring_examples(ShapeCollection, globals(), name="ShapeCollection") #Problem 10
+    doctest.run_docstring_examples(Dog,           globals(), name="Dog") #Problem 1
+    doctest.run_docstring_examples(Cat,           globals(), name="Cat") #Problem 2
+    doctest.run_docstring_examples(ElectricCar,   globals(), name="ElectricCar") #Problem 3
+    doctest.run_docstring_examples(SavingsAccount,globals(), name="SavingsAccount") #Problem 4
+    doctest.run_docstring_examples(Circle,        globals(), name="Circle") #Problem 5
+    doctest.run_docstring_examples(Rectangle,     globals(), name="Rectangle") #Problem 6
+    doctest.run_docstring_examples(total_area,    globals(), name="total_area") #Problem 7
+    doctest.run_docstring_examples(FixedList,     globals(), name="FixedList") #Problem 8
+    doctest.run_docstring_examples(DefaultDict,   globals(), name="DefaultDict") #Problem 9
+    doctest.run_docstring_examples(ShapeCollection, globals(), name="ShapeCollection") #Problem 10
