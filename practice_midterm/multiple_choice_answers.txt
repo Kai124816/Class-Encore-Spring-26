@@ -1,0 +1,89 @@
+CS 211 - Practice Midterm Exam
+Multiple Choice Answer Key
+================================================================================
+
+Q1)  B — A subclass defines a method with the same name as a parent class method,
+          replacing its behavior. This is the definition of overriding: same name,
+          new implementation in the subclass.
+
+Q2)  B — Area: 42. Even though describe() is defined in Shape, it calls
+          self.area(). Because self is a Circle, Python uses dynamic dispatch
+          to call Circle.area(), which returns 42.
+
+Q3)  B — super() is Python's built-in function for accessing the parent class.
+          It is commonly used inside __init__ or overridden methods to call
+          the parent's version.
+
+Q4)  C — A class with at least one @abstractmethod cannot be instantiated.
+          Abstract classes CAN have concrete methods (so B is false), and
+          Python fully supports them via the abc module (so D is false).
+
+Q5)  C — 3. Counter.count is a class variable shared by all instances.
+          Each call to __init__ increments it by 1. Three instances are
+          created, so Counter.count ends up as 3.
+
+Q6)  B — "from animals import Dog" is the correct Python syntax for importing
+          a single name from a module. Option A reverses the keyword order,
+          and C uses dot notation which only works for packages.
+
+Q7)  B — "Toyota, Speed: 100". Car.describe() returns
+          f"{self.brand}, {super().describe()}". super().describe() calls
+          Vehicle.describe(), which returns "Speed: 100". The two are
+          joined with ", ".
+
+Q8)  B — "index error" then "done". lst[5] raises an IndexError (the list
+          only has indices 0-2), so the IndexError except branch runs.
+          The finally block always executes regardless of whether an
+          exception occurred, so "done" prints as well.
+
+Q9)  B — __str__ controls the string representation of an object. It is
+          called automatically by print() and str(). Use __eq__ to
+          control == comparisons (that would be A).
+
+Q10) D — FALSE. Class variables are not private; they are accessible from
+          outside the class using ClassName.variable or instance.variable.
+          The other three statements (A, B, C) are all true.
+
+Q11) C — Polymorphism. It describes the ability of different object types to
+          respond to the same method name in their own way. Encapsulation
+          is about bundling data; abstraction is about hiding complexity;
+          inheritance is about sharing behavior between classes.
+
+Q12) B — 10. apply(double, 5) passes the function double and the value 5.
+          Inside apply, func(value) becomes double(5), which returns 5 * 2 = 10.
+
+Q13) C — @abstractmethod (imported from abc) is the correct decorator.
+          @abstract (option B) does not exist in Python's standard library
+          and would raise a NameError.
+
+Q14) C — 6. The linked list holds the values 1 -> 2 -> 3. The while loop
+          visits each node and accumulates the total: 1 + 2 + 3 = 6.
+
+Q15) B — 2. x starts with 3 keys. del x["a"] removes one, leaving "b"
+          and "c". len(x) is therefore 2. The x["b"] += 10 line modifies
+          a value but does not change the number of keys.
+
+Q16) B — To guarantee that all subclasses implement certain methods. Any
+          subclass that does not implement every @abstractmethod cannot be
+          instantiated, enforcing a consistent interface across all subclasses.
+
+Q17) A — 1 a / 2 b / 3 c. The for loop unpacks each tuple into num and
+          letter, then prints them separated by a space. This is called
+          tuple unpacking and is valid Python syntax.
+
+Q18) B — isinstance(obj, cls) returns True if obj is an instance of cls
+          or any subclass of cls. issubclass(A, B) (option C) checks class
+          relationships, not object instances.
+
+Q19) C — O(1). Python dictionaries are implemented as hash tables, which
+          support key lookup in constant time on average (assuming a good
+          hash function and low collision rate).
+
+Q20) B — True False True.
+          a == b → True  (__eq__ is defined to compare .x values; both are 5)
+          a is b → False (a and b are two separate objects in memory)
+          a is c → True  (c = a makes c point to the exact same object as a)
+
+================================================================================
+END OF ANSWER KEY
+================================================================================
