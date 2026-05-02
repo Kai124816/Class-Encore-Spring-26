@@ -323,9 +323,6 @@ Q20 = ""
 # ============================================================
 # FREE RESPONSE (5 points)
 # ============================================================
-# ============================================================
-# FREE RESPONSE (5 points)
-# ============================================================
  
 # 21) A Node class for a singly linked list is provided below.
 #     Write a function sum_evens(head) that takes the head node of a linked
