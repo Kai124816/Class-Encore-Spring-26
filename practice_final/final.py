@@ -165,7 +165,7 @@ class Square(Drawable):
     def draw(self):
         return "square"
 
-# d = Drawable()   # <--- this line (what does this do if run on its own?)
+d = Drawable()   # <--- this line (what does this do if run on its own?)
 #
 #    A) Creates a Drawable instance with no draw() method
 #    B) Raises NotImplementedError
@@ -237,7 +237,7 @@ class Mul:
         return self.left.eval() * self.right.eval()
 
 # Represents: (3 + 4) * (2 + 1)
-expr = Mul(Add(Lit(3), Lit(4)), Add(Lit(2), Lit(1)))
+expr = Mul(Add(Lit(3), Lit(4)), Add(Lit(2), Lit(1))) # Mul(Add(3, 4), Add(2, 1)) -> Mul(7, 3) -> 21
 print(expr.eval())
 #
 #     A) 10
